@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello Thymeleaf</title>
+</head>
+<body>
+<p>こんにちは</p>
+<p th:text="#{welcome}">__welcome__</p>
+<h1>Hello Thymeleaf</h1>
+<p th:text="${date}">__date__</p>
+<form action="#" th:action="@{/hello-submit}" method="post">
+    <p><input type="text" name="foo" /></p>
+    <p><input type="submit" value="submit"/></p>
+</form>
+<p th:text="${request_id}">__id__</p>
+</body>
+</html>
