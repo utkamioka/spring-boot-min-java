@@ -1,3 +1,5 @@
 http GET http://localhost:8080/hello
+http GET http://localhost:8080/hello 'accept-language:ja-JP;q=0.8,en;q=0.9'
+http GET http://localhost:8080/hello accept-language:x
 http GET http://localhost:8080/hello-submit
 http GET http://localhost:8080/neko
