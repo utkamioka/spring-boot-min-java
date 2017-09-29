@@ -23,18 +23,15 @@ public class CustomHandlerInterceptor extends HandlerInterceptorAdapter {
         System.out.println("CustomHandlerInterceptor.postHandle");
         System.out.println("handler = " + handler);
         System.out.println("modelAndView = " + modelAndView);
-//        response.setHeader("Request-Id", Objects.toString(request.getAttribute("Request-Id"), null));
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         System.out.println("CustomHandlerInterceptor.afterCompletion");
-//        response.setHeader("Request-Id", Objects.toString(request.getAttribute("Request-Id"), null));
     }
 
     @Override
     public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("CustomHandlerInterceptor.afterConcurrentHandlingStarted");
-//        response.setHeader("Request-Id", Objects.toString(request.getAttribute("Request-Id"), null));
     }
 }
