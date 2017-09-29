@@ -5,8 +5,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Collections;
-import java.util.Objects;
 import java.util.UUID;
 
 public class CustomHandlerInterceptor extends HandlerInterceptorAdapter {
@@ -14,10 +12,9 @@ public class CustomHandlerInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("CustomHandlerInterceptor.preHandle");
         System.out.println("handler = " + handler);
-        for ( String n : Collections.list(request.getAttributeNames())) {
-            System.out.println("\t> " + n + " = " + request.getAttribute(n));
-        }
-        request.setAttribute("Request-Id", UUID.randomUUID().toString());
+        // preHandle()でレスポンスにRequest-Idを付与する。
+        // →なぜ、postHandle()では無いのか？→ファイルダウンロードのようなケースでは、postHandle()はヘッダ処理の「後」に行われるため
+        response.addHeader("Request-Id", UUID.randomUUID().toString());
         return true;
     }
 
@@ -26,16 +23,18 @@ public class CustomHandlerInterceptor extends HandlerInterceptorAdapter {
         System.out.println("CustomHandlerInterceptor.postHandle");
         System.out.println("handler = " + handler);
         System.out.println("modelAndView = " + modelAndView);
-        response.setHeader("Request-Id", Objects.toString(request.getAttribute("Request-Id"), null));
+//        response.setHeader("Request-Id", Objects.toString(request.getAttribute("Request-Id"), null));
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         System.out.println("CustomHandlerInterceptor.afterCompletion");
+//        response.setHeader("Request-Id", Objects.toString(request.getAttribute("Request-Id"), null));
     }
 
     @Override
     public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("CustomHandlerInterceptor.afterConcurrentHandlingStarted");
+//        response.setHeader("Request-Id", Objects.toString(request.getAttribute("Request-Id"), null));
     }
 }

@@ -21,12 +21,10 @@ sourceCompatibility = 1.8
 // bootRunでホットリロードするための設定
 // IntelliJでauto-buildしたときに出力されるパスを変更
 // auto-buildの設定はsettingsから、"Make project automatically"で検索
-idea {
-    module {
-        inheritOutputDirs = false
-        outputDir = file("$buildDir/classes/main")
-        testOutputDir = file("$buildDir/classes/test")
-    }
+idea.module {
+    inheritOutputDirs = false
+    outputDir = file("$buildDir/classes/main")
+    testOutputDir = file("$buildDir/classes/test")
 }
 
 repositories {

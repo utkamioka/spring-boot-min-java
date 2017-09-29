@@ -1,9 +1,13 @@
 package com.example.kamioka;
 
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.ZonedDateTime;
@@ -27,5 +31,11 @@ public class HelloController {
         model.addAttribute("date", foo);
         model.addAttribute("request_id", req.getAttribute("Request-Id"));
         return "hello";
+    }
+
+    @RequestMapping(path = "/neko", produces = MediaType.TEXT_PLAIN_VALUE)
+    @ResponseBody
+    public Resource neko() {
+        return new ClassPathResource("wagahaiwa_nekodearu.txt");
     }
 }
