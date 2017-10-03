@@ -1,5 +1,6 @@
 package com.example.kamioka;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
@@ -23,6 +24,9 @@ public class BatchProcessing {
         }
     }
 
+    @Autowired
+    private Counter counter;
+
     @Scheduled(initialDelay = 1000, fixedDelay = 10000)
     public void fixedDelay() throws InterruptedException {
         System.out.println(Thread.currentThread() + ": BatchProcessing.fixedDelay(): in");
@@ -33,5 +37,6 @@ public class BatchProcessing {
     @Scheduled(cron = "0,15,30,45 * * * * *")
     public void cron() {
         System.out.println(Thread.currentThread() + ": BatchProcessing.cron(): " + new Date());
+        System.out.println(counter.getCount());
     }
 }

@@ -1,5 +1,6 @@
 package com.example.kamioka;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -19,9 +20,13 @@ public class HelloController {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss zzz");
 
+    @Autowired
+    private Counter counter;
+
     @RequestMapping(path = "/hello")
     public String hello(Model model, HttpServletRequest req, HttpServletResponse resp) {
         System.out.println(Thread.currentThread() + ": " + this.getClass().getPackage().getName() + ".HelloController.hello()");
+        model.addAttribute("counter", counter.getCount());
         model.addAttribute("date", ZonedDateTime.now().format(FORMATTER));
         model.addAttribute("request_id", resp.getHeader("Request-Id"));
         return "hello";
@@ -30,6 +35,7 @@ public class HelloController {
     @RequestMapping(path = "/hello-submit")
     public String helloSubmit(@ModelAttribute("foo") String foo, Model model, HttpServletRequest req, HttpServletResponse resp) {
         System.out.println(Thread.currentThread() + ": " + this.getClass().getPackage().getName() + ".HelloController.helloSubmit()");
+        model.addAttribute("counter", counter.getCount());
         model.addAttribute("date", foo);
         model.addAttribute("request_id", resp.getHeader("Request-Id"));
         return "hello";
