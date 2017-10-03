@@ -21,7 +21,7 @@ public class HelloController {
 
     @RequestMapping(path = "/hello")
     public String hello(Model model, HttpServletRequest req, HttpServletResponse resp) {
-        System.out.println(this.getClass().getPackage().getName() + ".HelloController.hello()");
+        System.out.println(Thread.currentThread() + ": " + this.getClass().getPackage().getName() + ".HelloController.hello()");
         model.addAttribute("date", ZonedDateTime.now().format(FORMATTER));
         model.addAttribute("request_id", resp.getHeader("Request-Id"));
         return "hello";
@@ -29,7 +29,7 @@ public class HelloController {
 
     @RequestMapping(path = "/hello-submit")
     public String helloSubmit(@ModelAttribute("foo") String foo, Model model, HttpServletRequest req, HttpServletResponse resp) {
-        System.out.println(this.getClass().getPackage().getName() + ".HelloController.helloSubmit()");
+        System.out.println(Thread.currentThread() + ": " + this.getClass().getPackage().getName() + ".HelloController.helloSubmit()");
         model.addAttribute("date", foo);
         model.addAttribute("request_id", resp.getHeader("Request-Id"));
         return "hello";
@@ -38,7 +38,7 @@ public class HelloController {
     @RequestMapping(path = "/neko", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     @ResponseBody
     public Resource neko() {
-        System.out.println(this.getClass().getPackage().getName() + ".HelloController.neko()");
+        System.out.println(Thread.currentThread() + ": " + this.getClass().getPackage().getName() + ".HelloController.neko()");
         // なにもしないと、Content-Typeが"application/json"になるので、"application/octet-stream"を指定する。
         return new ClassPathResource("wagahaiwa_nekodearu");
     }
@@ -46,7 +46,7 @@ public class HelloController {
     @RequestMapping(path = "/neko.txt")
     @ResponseBody
     public Resource neko_txt() {
-        System.out.println(this.getClass().getPackage().getName() + ".HelloController.neko_txt()");
+        System.out.println(Thread.currentThread() + ": " + this.getClass().getPackage().getName() + ".HelloController.neko_txt()");
         // "*.txt"だと、Content-Typeが強制的に"text/plain"になる。
         return new ClassPathResource("wagahaiwa_nekodearu.txt");
     }
